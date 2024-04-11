@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.MovieAppV22" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="colorPrimary">#FFBB86FC</item>
+        <item name="colorPrimaryDark">#FF000000</item>
+        <item name="colorAccent">#FFFFFFFF</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+</resources>
