@@ -137,7 +137,7 @@ public class movieDetails extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                name.setText(finalJObject.optString("title"));
+                                name.setText(finalJObject.optString("name"));
                                 image.setImageBitmap(bitmap);
                             }
                         });
@@ -149,8 +149,8 @@ public class movieDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    FileWriter fileWriter = new FileWriter(file);
-                    fileWriter.write((id + "$" + media + "\n"));
+                    FileWriter fileWriter = new FileWriter(file,true);
+                    fileWriter.append(id).append("#").append(media).append("\n");
                     fileWriter.close();
                     Toast.makeText(movieDetails.this, "Bookmarked", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
