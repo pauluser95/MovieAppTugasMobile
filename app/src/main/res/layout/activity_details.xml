@@ -7,30 +7,72 @@
     android:layout_height="match_parent"
     tools:context=".movieDetails">
 
-    <TextView
-        android:id="@+id/gridData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="105dp"
-        android:text="water"
-        android:textSize="30dp"
-        />
     <ImageView
-        android:id="@+id/gridImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/loading"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/gridData"
-        android:layout_marginTop="27dp"
-        android:contentDescription="loading"
-        />
-    <Button
-        android:id="@+id/addBookmark"
-        android:layout_width="wrap_content"
+        android:id="@+id/movieImageDetails"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/gridImage"
-        android:layout_centerHorizontal="true"
-        android:text="Bookmark"/>
+        android:scaleType="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="6dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/shadow_back"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewDetails"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/moviewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="sans-serif-black"
+            android:text="Text View"
+            android:textSize="30sp"
+            android:textColor="#E5F1F0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageViewDetails" />
+
+        <RatingBar
+            android:id="@+id/ratingBar_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView_title_details"/>
+
+        <Button
+            android:id="@+id/addBookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Bookmark" />
+
+        <TextView
+            android:id="@+id/textView_desc_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="18sp"
+            android:textColor="#E5F1F0"
+            android:text="Text View"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ratingBar_details" />
+
+
+    </LinearLayout>
 </RelativeLayout>

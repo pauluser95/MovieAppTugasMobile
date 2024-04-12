@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.MovieAppV22" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="colorPrimary">#FFBB86FC</item>
-        <item name="colorPrimaryDark">#FF000000</item>
-        <item name="colorAccent">#FFFFFFFF</item>
+    <style name="Theme.MovieAppV22" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="materialButtonStyle">@style/ButtonColour</item>
+    </style>
+    <style name="ButtonColour" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="backgroundTint">#689f38</item>
+        <item name="rippleColor">#c5e1a5</item>
     </style>
 </resources>
+

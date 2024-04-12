@@ -29,7 +29,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flFragment"
-        app:srcCompat="@drawable/baseline_home_24" />
+        app:srcCompat="@drawable/baseline_home_24"
+        android:background="?attr/selectableItemBackgroundBorderless"/>
 
     <ImageButton
         android:id="@+id/btnSearch"
@@ -40,7 +41,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnHome"
         app:layout_constraintTop_toBottomOf="@+id/flFragment"
-        app:srcCompat="@drawable/baseline_search_24" />
+        app:srcCompat="@drawable/baseline_search_24"
+        android:background="?attr/selectableItemBackgroundBorderless"/>
 
     <ImageButton
         android:id="@+id/btnWatchlist"
@@ -51,7 +53,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnSearch"
         app:layout_constraintTop_toBottomOf="@+id/flFragment"
-        app:srcCompat="@drawable/baseline_live_tv_24" />
+        app:srcCompat="@drawable/baseline_live_tv_24"
+        android:background="?attr/selectableItemBackgroundBorderless"/>
 
     <ImageButton
         android:id="@+id/btnProfile"
@@ -62,6 +65,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnWatchlist"
         app:layout_constraintTop_toBottomOf="@+id/flFragment"
-        app:srcCompat="@drawable/baseline_account_circle_24" />
+        app:srcCompat="@drawable/baseline_account_circle_24"
+        android:background="?attr/selectableItemBackgroundBorderless"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

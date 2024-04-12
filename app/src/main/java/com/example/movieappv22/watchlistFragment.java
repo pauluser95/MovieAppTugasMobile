@@ -103,9 +103,14 @@ class WatchlistedAdapter extends RecyclerView.Adapter<WatchlistedAdapter.ViewHol
         Button button = viewHolder.watchButton;
         int id = Integer.parseInt(movie.id);
         String media= movie.media;
+        String url;
         if(media.compareTo("movie")==0) {
+            url = "https://api.themoviedb.org/3/movie/" + id + "&language=en-US";
+        }else {
+            url = "https://api.themoviedb.org/3/tv/" + id + "&language=en-US";
+        }
             Request request = new Request.Builder()
-                    .url("https://api.themoviedb.org/3/movie/" + id + "&language=en-US")
+                    .url(url)
                     .get()
                     .addHeader("accept", "application/json")
                     .addHeader(
@@ -123,7 +128,12 @@ class WatchlistedAdapter extends RecyclerView.Adapter<WatchlistedAdapter.ViewHol
                         try {
                             Handler handler = new Handler(Looper.getMainLooper());
                             jObject = new JSONObject(jsondata);
-                            String title = jObject.getString("title");
+                            String title;
+                            if(media.compareTo("movie")==0) {
+                                title = jObject.getString("title");
+                            }else{
+                                title = jObject.getString("name");
+                            }
                             String link  = jObject.getString("homepage");
                             Intent intent = new Intent(Intent.ACTION_VIEW);
                             intent.setData(Uri.parse(link));
@@ -145,49 +155,6 @@ class WatchlistedAdapter extends RecyclerView.Adapter<WatchlistedAdapter.ViewHol
             });
             button.setText(movie.isWatched ? "Watched" : "Watch now");
             button.setEnabled(!movie.isWatched);
-        } else {
-            Request request = new Request.Builder()
-                    .url("https://api.themoviedb.org/3/tv/" + id + "&language=en-US")
-                    .get()
-                    .addHeader("accept", "application/json")
-                    .addHeader(
-                            "Authorization",
-                            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZmM3MWMxNzZjNzVjZTQzZDk2MWFiYTc1NWFiNWFjMSIsInN1YiI6IjY1ZTgwZTllMzQ0YThlMDE3ZDNlZmQyOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.phSeMPz4gwQ-daRBwmo21fg-HCWDQcpZfd3IWX2VXuM"
-                    )
-                    .build();
-            OkHttpClient client = new OkHttpClient();
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                    if (response.isSuccessful()) {
-                        String jsondata = response.body().string();
-                        JSONObject jObject = null;
-                        try {
-                            Handler handler = new Handler(Looper.getMainLooper());
-                            jObject = new JSONObject(jsondata);
-                            String title = jObject.getString("name");
-                            String link  = jObject.getString("homepage");
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setData(Uri.parse(link));
-                                handler.post(() -> {
-                                    textView.setText(title);
-                                    button.setOnClickListener(v-> {context.startActivity(intent);});
-                                });
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    e.printStackTrace();
-                }
-
-            });
-            button.setText(movie.isWatched ? "Watched" : "Watch now");
-            button.setEnabled(!movie.isWatched);
-        }
     }
 
     @Override

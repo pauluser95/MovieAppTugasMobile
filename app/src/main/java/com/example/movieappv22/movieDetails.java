@@ -54,97 +54,65 @@ public class movieDetails extends AppCompatActivity {
         }
         File file = new File(letDirectory, "watchlist.txt");
         OkHttpClient client = new OkHttpClient();
-        TextView name = findViewById(R.id.gridData);
-        ImageView image = findViewById(R.id.gridImage);
+        TextView name = findViewById(R.id.moviewTitle);
+        ImageView image = findViewById(R.id.movieImageDetails);
         String id = getIntent().getStringExtra("id");
         String media = getIntent().getStringExtra("media");
+        String url;
         if(media.compareTo("movie")==0) {
-            Request request = new Request.Builder()
-                    .url("https://api.themoviedb.org/3/movie/" + id + "&language=en-US")
-                    .get()
-                    .addHeader("accept", "application/json")
-                    .addHeader(
-                            "Authorization",
-                            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZmM3MWMxNzZjNzVjZTQzZDk2MWFiYTc1NWFiNWFjMSIsInN1YiI6IjY1ZTgwZTllMzQ0YThlMDE3ZDNlZmQyOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.phSeMPz4gwQ-daRBwmo21fg-HCWDQcpZfd3IWX2VXuM"
-                    )
-                    .build();
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) {
-                    if (response.isSuccessful()) {
-                        String jsondata = null;
-                        try {
-                            jsondata = response.body().string();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        JSONObject jObject = null;
-                        try {
-                            jObject = new JSONObject(jsondata);
-                        } catch (org.json.JSONException e) {
-                            e.printStackTrace();
-                        }
-                        Bitmap bitmap = getBitmapFromUrl(jObject.optString("poster_path"));
-                        JSONObject finalJObject = jObject;
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                name.setText(finalJObject.optString("title"));
-                                image.setImageBitmap(bitmap);
-                            }
-                        });
-                    }
-                }
-            });
-        }else {
-            Request request = new Request.Builder()
-                    .url("https://api.themoviedb.org/3/tv/" + id + "&language=en-US")
-                    .get()
-                    .addHeader("accept", "application/json")
-                    .addHeader(
-                            "Authorization",
-                            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZmM3MWMxNzZjNzVjZTQzZDk2MWFiYTc1NWFiNWFjMSIsInN1YiI6IjY1ZTgwZTllMzQ0YThlMDE3ZDNlZmQyOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.phSeMPz4gwQ-daRBwmo21fg-HCWDQcpZfd3IWX2VXuM"
-                    )
-                    .build();
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) {
-                    if (response.isSuccessful()) {
-                        String jsondata = null;
-                        try {
-                            jsondata = response.body().string();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        JSONObject jObject = null;
-                        try {
-                            jObject = new JSONObject(jsondata);
-                        } catch (org.json.JSONException e) {
-                            e.printStackTrace();
-                        }
-                        Bitmap bitmap = getBitmapFromUrl(jObject.optString("poster_path"));
-                        JSONObject finalJObject = jObject;
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                name.setText(finalJObject.optString("name"));
-                                image.setImageBitmap(bitmap);
-                            }
-                        });
-                    }
-                }
-            });
+            url =  "https://api.themoviedb.org/3/movie/" + id + "&language=en-US";
+        }else{
+            url = "https://api.themoviedb.org/3/tv/" + id + "&language=en-US";
         }
+            Request request = new Request.Builder()
+                    .url(url)
+                    .get()
+                    .addHeader("accept", "application/json")
+                    .addHeader(
+                            "Authorization",
+                            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZmM3MWMxNzZjNzVjZTQzZDk2MWFiYTc1NWFiNWFjMSIsInN1YiI6IjY1ZTgwZTllMzQ0YThlMDE3ZDNlZmQyOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.phSeMPz4gwQ-daRBwmo21fg-HCWDQcpZfd3IWX2VXuM"
+                    )
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) {
+                    String title;
+                    if (response.isSuccessful()) {
+                        String jsondata = null;
+                        try {
+                            jsondata = response.body().string();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        JSONObject jObject = null;
+                        try {
+                            jObject = new JSONObject(jsondata);
+
+                            if(media.compareTo("movie")==0) {
+                                title = jObject.getString("title");
+                            }else{
+                                title = jObject.getString("name");
+                            }
+                            Bitmap bitmap = getBitmapFromUrl(jObject.optString("backdrop_path"));
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    name.setText(title);
+                                    image.setImageBitmap(bitmap);
+                                }
+                            });
+                        } catch (org.json.JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+
         findViewById(R.id.addBookmark).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
